@@ -4242,11 +4242,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\Domino\\apiDotNet\\apiDomino\\apiDomino\\apiDomino.csproj",
+      "projectUniqueName": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
       "projectName": "apiDomino",
-      "projectPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\Domino\\apiDotNet\\apiDomino\\apiDomino\\apiDomino.csproj",
+      "projectPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
       "packagesPath": "C:\\Users\\samue\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\Domino\\apiDotNet\\apiDomino\\apiDomino\\obj\\",
+      "outputPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",

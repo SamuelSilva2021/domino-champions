@@ -206,7 +206,7 @@ const Confrontos = () => {
     };
 
     return (
-        <div className=' w-1/2 justify-center items-center'>
+        <div className='flex flex-col justify-center items-center'>
             <h2 className="text-center text-2xl font-bold mb-4">Confrontos</h2>
             {confrontos.length > 0 ? '' : <button
                 className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
@@ -254,6 +254,7 @@ const Confrontos = () => {
                                             );
                                         }}
                                         className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                                        min="0"
                                     />
                                 </div>
                                 <div className='w-20 text-end'>
@@ -277,6 +278,7 @@ const Confrontos = () => {
                                             );
                                         }}
                                         className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                                        min="0"
                                     />
                                 </div>
 
@@ -305,6 +307,7 @@ const Confrontos = () => {
                                             }));
                                         }}
                                         className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                                        min="0"
                                     />
                                 </div>
                                 <div className='w-20 text-end'>
@@ -325,6 +328,7 @@ const Confrontos = () => {
                                             }));
                                         }}
                                         className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                                        min="0"
                                     />
                                 </div>
 
