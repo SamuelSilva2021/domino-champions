@@ -1,4 +1,5 @@
 ﻿using apiDomino.Model;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace apiDomino.Model
@@ -32,5 +33,9 @@ namespace apiDomino.Model
 
         public int VencedorId { get; set; }
         public int FlConcluido { get; set; }
+        [DefaultValue(0)]
+        public int FlFaseGrupos { get; set; }
+        [DefaultValue(0)]
+        public int FlFinal { get; set; }
     }
 }

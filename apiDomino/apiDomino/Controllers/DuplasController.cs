@@ -45,10 +45,11 @@ namespace apiDomino.Controllers
         public async Task<IActionResult> GetRankigDupla()
         {
             var duplas = await _dbContext.Duplas
+                        .Include(d => d.Jogador1)
+                        .Include(d => d.Jogador2)
                         .OrderByDescending(d => d.Pontos)
                         .ThenByDescending(d => d.PontosBatida)
                         .Where(d => d.FlAtivo == 1)
-                        .Select(d => new { d.Name, d.PartidasConcluidas, d.Pontos, d.PontosBatida })                       
                         .ToListAsync();
 
             return Ok(duplas);

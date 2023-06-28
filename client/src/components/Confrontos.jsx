@@ -79,7 +79,9 @@ const Confrontos = () => {
                     pontosDupla2: 0,
 
                     vencedorId: 0,
-                    flConcluido: 0
+                    flConcluido: 0,
+                    flFaseGrupos: 1,
+                    flFinal:0    
                 };
                 confrontosArray.push(confronto);
             }
@@ -207,7 +209,7 @@ const Confrontos = () => {
 
     return (
         <div className='flex flex-col justify-center items-center'>
-            <h2 className="text-center text-2xl font-bold mb-4">Confrontos</h2>
+            <h2 className="text-center text-2xl font-bold mb-4">{confrontos.length > 0 && confrontos[0].flFinal === 1 ? 'Final' : 'Fase de Grupos'}</h2>
             {confrontos.length > 0 ? '' : <button
                 className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
                 onClick={() => setGerarConfronto(true)}
