@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 const urlConfrontos = 'https://localhost:7009/api/Confrontos/'
 
-const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida }) => {
+const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida, flFinal, duplas, jogadores }) => {
   const [confrontoData, setConfrontoData] = useState(confronto);
 
   const finalizaConfronto = async (confronto) => {
@@ -31,8 +31,13 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
       pontosDupla2: confronto.pontosDupla2,
 
       vencedorId: confronto.pontosDupla1 > confronto.pontosDupla2 ? confronto.dupla1Id : confronto.dupla2Id,
-      flConcluido: 1
+      flConcluido: 1,
+      flFaseGrupos: flFinal ? 0 : 1,
+      flFinal: flFinal ? 1 : 0
+
     };
+    const campeao = duplas.find((dupla) => dupla.id === data.vencedorId);
+    const maiorPontuador = `${jogadores[0].nome} ${jogadores[0].pontos} pontos`
 
     const response = await fetch(urlConfrontos + confronto.id, {
       method: 'PUT',
@@ -44,7 +49,7 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
 
     if (response.ok) {
       closeModal(); // Fechar o modal
-      updateAoVivo(); // Atualizar o componente AoVivo
+      updateAoVivo()
     } else {
       const errorResponse = await response.json();
 
@@ -57,6 +62,7 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
         throw new Error('Erro ao finalizar a partida. Por favor, tente novamente.');
       }
     }
+
   };
 
   const handleInputChange = (e, jogadorIndex) => {
@@ -119,9 +125,10 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
                 type="number"
                 value={confrontoData.dupla1Jogador1Pontos}
                 onChange={(e) => handleInputChange(e, 1)}
-                className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                className="border border-gray-300 rounded-md px-2 py-1 w-20 focus:border-red-500 focus:outline-none hover:cursor-pointer"
                 min="0"
                 disabled={partidaConcluida}
+                max="7"
               />
             </div>
             <div className='w-20 text-end'>
@@ -131,8 +138,9 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
               type="number"
               value={confrontoData.dupla1Jogador2Pontos}
               onChange={(e) => handleInputChange(e, 2)}
-              className="border border-gray-300 rounded-md px-2 py-1 w-20"
+              className="border border-gray-300 rounded-md px-2 py-1 w-20 focus:border-red-500 focus:outline-none hover:cursor-pointer"
               min="0"
+              max={7}
               disabled={partidaConcluida}
             /></div>
           </div>
@@ -149,8 +157,9 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
                 type="number"
                 value={confrontoData.dupla2Jogador1Pontos}
                 onChange={(e) => handleInputChange(e, 3)}
-                className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                className="border border-gray-300 rounded-md px-2 py-1 w-20 focus:border-red-500 focus:outline-none hover:cursor-pointer"
                 min="0"
+                max={7}
                 disabled={partidaConcluida}
               />
             </div>
@@ -162,8 +171,9 @@ const ConfrontoModal = ({ confronto, closeModal, updateAoVivo, partidaConcluida 
                 type="number"
                 value={confrontoData.dupla2Jogador2Pontos}
                 onChange={(e) => handleInputChange(e, 4)}
-                className="border border-gray-300 rounded-md px-2 py-1 w-20"
+                className="border border-gray-300 rounded-md px-2 py-1 w-20 focus:border-red-500 focus:outline-none hover:cursor-pointer"
                 min="0"
+                max={7}
                 disabled={partidaConcluida}
               />
             </div>

@@ -2,7 +2,9 @@
 using apiDomino.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace apiDomino.Controllers
@@ -26,6 +28,11 @@ namespace apiDomino.Controllers
 
             return confrontos;
         }
+
+        
+        
+
+
         [HttpGet("concluido/{concluido}")]
         public async Task<ActionResult<IEnumerable<Confronto>>> GetConfrontoConcluido(bool concluido)
         {
@@ -78,6 +85,59 @@ namespace apiDomino.Controllers
                 return StatusCode(500, new { error = "Erro ao salvar o confronto" });
             }
         }
+        public static T DeepClone<T>(T obj)
+        {
+            if (obj == null)
+                return default;
+
+            // Cria uma nova instância do mesmo tipo do objeto original
+            T clone = (T)Activator.CreateInstance(obj.GetType());
+
+            // Obtém todas as propriedades do objeto original
+            PropertyInfo[] properties = obj.GetType().GetProperties();
+
+            // Copia os valores das propriedades para o clone
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.CanWrite)
+                {
+                    object value = property.GetValue(obj);
+                    property.SetValue(clone, value);
+                }
+            }
+
+            return clone;
+        }
+        [HttpPost("final")]
+        public async Task<IActionResult> PostConfrontoFinal(Confronto confronto)
+        {
+            try
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    // Crie uma nova instância do objeto Confronto usando a clonagem profunda
+                    Confronto novaPartida = DeepClone(confronto);
+
+                    // Adicione a nova partida ao contexto do banco de dados
+                    _dbContext.Confrontos.Add(novaPartida);
+                }
+
+                // Salve as alterações no banco de dados
+                await _dbContext.SaveChangesAsync();
+
+                // Retorne a lista das três partidas salvas com o status 201 (Created)
+                List<Confronto> partidasSalvas = await _dbContext.Confrontos
+                                                .Where(c=> c.FlFinal==1)
+                                                .ToListAsync();
+                return CreatedAtAction(nameof(GetConfronto), partidasSalvas);
+            }
+            catch (Exception ex)
+            {
+                // Em caso de erro, retorne um erro de servidor com o status 500 (Internal Server Error)
+                return StatusCode(500, new { error = "Erro ao salvar as partidas" });
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateConfronto(int id, Confronto confronto)
         {

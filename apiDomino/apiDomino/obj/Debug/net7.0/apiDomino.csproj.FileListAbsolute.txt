@@ -208,3 +208,4 @@ C:\Users\samue\OneDrive\Documentos\Projetos\JavaScript\domino-champions\apiDomin
 C:\Users\samue\OneDrive\Documentos\Projetos\JavaScript\domino-champions\apiDomino\apiDomino\obj\Debug\net7.0\apiDomino.pdb
 C:\Users\samue\OneDrive\Documentos\Projetos\JavaScript\domino-champions\apiDomino\apiDomino\obj\Debug\net7.0\apiDomino.genruntimeconfig.cache
 C:\Users\samue\OneDrive\Documentos\Projetos\JavaScript\domino-champions\apiDomino\apiDomino\obj\Debug\net7.0\ref\apiDomino.dll
+C:\Users\samue\OneDrive\Documentos\Projetos\JavaScript\domino-champions\apiDomino\apiDomino\bin\Debug\net7.0\Newtonsoft.Json.dll

@@ -299,7 +299,7 @@ const Duplas = () => {
                         </div>
                         <div className="mb-4">
                             <label htmlFor="Jogador2" className="block font-medium mb-2">
-                                Jogador1
+                                Jogador2
                             </label>
                             <select
                                 name="Jogador2"

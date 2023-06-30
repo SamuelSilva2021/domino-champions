@@ -31,6 +31,7 @@ const PlayerTable = () => {
       })
       .catch(error => {
         console.error('Erro ao buscar os jogadores:', error);
+        console.log(error)
         setLoading(false);
       });
   };  
@@ -166,7 +167,7 @@ const PlayerTable = () => {
             </tr>
           </thead>
           <tbody>
-            {jogadores.filter(filterPlayers).map(player => (
+            {jogadores.length > 0 ? jogadores.filter(filterPlayers).map(player => (
               <tr key={player.id} className='itens-center border-b-2 cursor-pointer hover:bg-blue-200'>
                 <td className='text-center'>{player.nome}</td>
                 <td>
@@ -187,7 +188,7 @@ const PlayerTable = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+            )) : <></>}
           </tbody>
         </table>
       )}

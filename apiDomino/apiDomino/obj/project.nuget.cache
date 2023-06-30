@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xlA+vHR7CHIVYenXk4QfFdU7mhKirZt1Ln2jdMIqAjZqsBiwZnCxcNzUeyW5IvC4Nh2AwQG9tzEg3XrkTkAiBw==",
+  "dgSpecHash": "xXKsp20Rg/J3GPPDL+q0hgICfoQFK0LSZx/Tt+Obvobm61L16vbiEFLkSOQedaFQlA9rSwye4A0RNMSbHMs1aw==",
   "success": true,
   "projectFilePath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
   "expectedPackageFiles": [
@@ -48,6 +48,7 @@
     "C:\\Users\\samue\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\samue\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.4\\sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\sqlitepclraw.core\\2.1.4\\sqlitepclraw.core.2.1.4.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.4\\sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",

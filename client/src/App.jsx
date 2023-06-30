@@ -7,6 +7,7 @@ import Inicio from "./pages/Inicio";
 import PlayerTable from "./components/PlayTable";
 import Duplas from "./pages/Duplas";
 import Tabela from "./pages/Tabela"
+
 const App = () => {
   return (
     <RootLayout>

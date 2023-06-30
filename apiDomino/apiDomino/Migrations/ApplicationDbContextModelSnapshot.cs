@@ -16,6 +16,37 @@ namespace apiDomino.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
+            modelBuilder.Entity("apiDomino.Model.Campeonato", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DuplaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DuplaNome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("JogadorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JogadorNome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PontosDupla")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PontosJogador")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Campeonato");
+                });
+
             modelBuilder.Entity("apiDomino.Model.Confronto", b =>
                 {
                     b.Property<int>("Id")
