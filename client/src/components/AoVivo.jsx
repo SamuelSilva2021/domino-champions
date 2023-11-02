@@ -263,6 +263,7 @@ const AoVivo = () => {
                                     <th className="px-4 py-2">J</th>
                                     <th className="px-4 py-2">Pontos</th>
                                     <th className="px-4 py-2">Pt. Batida</th>
+                                    <th className="px-4 py-2">Pt. Sofridos</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -272,6 +273,7 @@ const AoVivo = () => {
                                         <td className="border px-4 py-2">{dupla.partidasConcluidas}</td>
                                         <td className="border px-4 py-2">{dupla.pontos}</td>
                                         <td className="border px-4 py-2">{dupla.pontosBatida}</td>
+                                        <td className="border px-4 py-2">{dupla.pontosSofridos}</td>
                                     </tr>
                                 ))}
                             </tbody>

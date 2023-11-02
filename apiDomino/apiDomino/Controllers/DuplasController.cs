@@ -49,6 +49,7 @@ namespace apiDomino.Controllers
                         .Include(d => d.Jogador2)
                         .OrderByDescending(d => d.Pontos)
                         .ThenByDescending(d => d.PontosBatida)
+                        .ThenBy(d => d.PontosSofridos)
                         .Where(d => d.FlAtivo == 1)
                         .ToListAsync();
 

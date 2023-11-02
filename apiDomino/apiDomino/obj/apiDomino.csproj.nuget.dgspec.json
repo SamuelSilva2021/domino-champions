@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj": {}
+    "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj": {}
   },
   "projects": {
-    "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj": {
+    "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
+        "projectUniqueName": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
         "projectName": "apiDomino",
-        "projectPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
+        "projectPath": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
         "packagesPath": "C:\\Users\\samue\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\JavaScript\\domino-champions\\apiDomino\\apiDomino\\obj\\",
+        "outputPath": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
@@ -51,25 +51,25 @@
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.13, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.13, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -77,7 +77,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

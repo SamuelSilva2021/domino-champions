@@ -21,6 +21,7 @@ namespace apiDomino.Model
         public int PartidasConcluidas { get; set; }
         [DefaultValue(1)]
         public int FlAtivo { get; set; } = 1;
+        public int PontosSofridos { get; set; }
     }
 
 }

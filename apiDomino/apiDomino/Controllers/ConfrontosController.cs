@@ -187,10 +187,15 @@ namespace apiDomino.Controllers
                 dupla.PontosBatida += duplaPontos[i];
                 dupla.PartidasConcluidas += 1;
             }
+            //Lógica para adicionar pontos sofridos as duplas
+            var dupla1 = duplas.Where(d => d.Id == confronto.Dupla1Id).FirstOrDefault();
+            dupla1.PontosSofridos += duplaPontos[1];
+            var dupla2 = duplas.Where(d => d.Id == confronto.Dupla2Id).FirstOrDefault();
+            dupla2.PontosSofridos += duplaPontos[0];
+           
             var vencedor = duplas.Where(d => d.Id == confronto.VencedorId).FirstOrDefault();
             vencedor.Pontos += 3;
             
-
             try
             {
                 await _dbContext.SaveChangesAsync();
