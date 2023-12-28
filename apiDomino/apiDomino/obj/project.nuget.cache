@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5HyIxlXyxYxRx1WENhyaeiug5Iz9tXOI8wd8GLTE/7zmK13ko1aNqdM92QSP6TUWbPqEUL7hTAjmSNkbafC3Pw==",
+  "dgSpecHash": "ppGl2MJr8vpYYSsAh+EOVYzIOy7MYCs/ZvKhRght6MvqNfFDTbeNroqHCkzOTSo6R0H0pA7WmPWS5YcHHFHBuA==",
   "success": true,
-  "projectFilePath": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
+  "projectFilePath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\samue\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
