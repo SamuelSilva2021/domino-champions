@@ -60,7 +60,7 @@ namespace apiDomino.Controllers
                     var duplaCampea = await _dbContext.Duplas.FindAsync(dupla.Key);
                     var jogador = await _dbContext.Jogadores
                         .OrderByDescending(j => j.Pontos)
-                        .Where(j => j.FlAtivo == 1)
+                        .Where(j => j.FlAtivo)
                         .FirstOrDefaultAsync();
 
                     campeonato = new Campeonato

@@ -2,9 +2,11 @@
 using apiDomino.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using apiDomino.Util;
 
 namespace apiDomino.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class JogadoresController: ControllerBase
@@ -42,7 +44,7 @@ namespace apiDomino.Controllers
         {
             var jogadores = await _dbContext.Jogadores
                         .OrderByDescending(j => j.Pontos)
-                        .Where(j => j.FlAtivo == 1)
+                        .Where(j => j.FlAtivo)
                         .Select(j => new { j.Nome, j.Pontos})
                         .ToListAsync();
 
@@ -55,9 +57,21 @@ namespace apiDomino.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Jogador>> AddJogador(Jogador jogador)
+        public async Task<ActionResult<Jogador>> AddJogador([FromForm] Jogador jogador, IFormFile imagem)
         {
-            _dbContext.Jogadores.Add(jogador);
+            if (imagem != null)
+            {
+                var diretorio = Constantes.DIRETORIO_IMAGENS;
+                var caminhoCompleto = Path.Combine(diretorio, imagem.FileName);
+
+                using (var stream = new FileStream(caminhoCompleto, FileMode.Create))
+                {
+                    await imagem.CopyToAsync(stream);
+                }
+
+                jogador.UrlImagem = Path.Combine(imagem.FileName);
+            }
+            _dbContext.Jogadores.Add(jogador);      
             await _dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetJogador), new { id = jogador.Id }, jogador);
@@ -80,13 +94,24 @@ namespace apiDomino.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateJogador(int id, Jogador jogador)
+        public async Task<IActionResult> UpdateJogador([FromForm] Jogador jogador, IFormFile imagem, int id)
         {
             if (id != jogador.Id)
             {
                 return BadRequest();
             }
+            if (imagem != null)
+            {
+                var diretorio = Constantes.DIRETORIO_IMAGENS;
+                var caminhoCompleto = Path.Combine(diretorio, imagem.FileName);
 
+                using (var stream = new FileStream(caminhoCompleto, FileMode.Create))
+                {
+                    await imagem.CopyToAsync(stream);
+                }
+
+                jogador.UrlImagem = Path.Combine(imagem.FileName);
+            }
             _dbContext.Entry(jogador).State = EntityState.Modified;
 
             try

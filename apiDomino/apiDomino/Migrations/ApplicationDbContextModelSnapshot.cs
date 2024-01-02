@@ -172,6 +172,12 @@ namespace apiDomino.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Apelido")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("FlAtivo")
                         .HasColumnType("INTEGER");
 
@@ -181,6 +187,12 @@ namespace apiDomino.Migrations
 
                     b.Property<int>("Pontos")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Titulos")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UrlImagem")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

@@ -2,6 +2,7 @@ using apiDomino.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //Configura CORS
 builder.Services.AddCors(o => o.AddPolicy("Domino", builder =>
 {
-    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    builder.WithOrigins("http://localhost:5173")
+    .WithMethods("POST", "GET", "PUT", "DELETE")
+    .WithHeaders(HeaderNames.ContentType);
 }));
 
 builder.Services.AddControllers();
