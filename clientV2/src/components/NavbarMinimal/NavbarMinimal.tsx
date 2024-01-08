@@ -39,11 +39,11 @@ function NavbarLink({ icon: Icon, label, link }: NavbarLinkProps) {
 
 const routes: NavbarLinkProps[] = [
   { icon: IconHome2, label: 'Home', link: '/' },
-  { icon: IconUsers, label: 'Jogadores', link: '/jogadores' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/analytics' },
-  { icon: IconCalendarStats, label: 'Releases', link: '/releases' },
-  { icon: IconUser, label: 'Account', link: '/account' },
-  { icon: IconFingerprint, label: 'Security', link: '/security' },
+  { icon: IconUser, label: 'Jogadores', link: '/jogadores' },
+  { icon: IconUsers, label: 'Duplas', link: '/duplas' },
+  { icon: IconCalendarStats, label: 'Jogos', link: '/jogos' },
+  { icon: IconDeviceDesktopAnalytics, label: 'Análises', link: '/analises' },
+  { icon: IconFingerprint, label: 'Segurança', link: '/seguranca' },
   { icon: IconSettings, label: 'Settings', link: '/settings' },
 ];
 

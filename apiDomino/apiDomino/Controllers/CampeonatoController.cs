@@ -66,7 +66,7 @@ namespace apiDomino.Controllers
                     campeonato = new Campeonato
                     {
                         DuplaId = duplaCampea.Id,
-                        DuplaNome = duplaCampea.Name,
+                        DuplaNome = duplaCampea.Nome,
                         PontosDupla = dupla.Value,
                         JogadorId = jogador.Id,
                         JogadorNome = jogador.Nome,

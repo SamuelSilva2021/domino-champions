@@ -112,6 +112,7 @@ namespace apiDomino.Controllers
 
                 jogador.UrlImagem = Path.Combine(imagem.FileName);
             }
+            
             _dbContext.Entry(jogador).State = EntityState.Modified;
 
             try

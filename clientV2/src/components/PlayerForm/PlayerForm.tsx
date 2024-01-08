@@ -7,8 +7,9 @@ import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import { useState } from 'react';
 import axios from 'axios';
 import { Player } from '@/utils/models/player';
-import { SwitchePlayer } from '../Switche/SwitchePlayer';
-import { HandleEditPlayer, Sucess, Error } from '@/pages/PlayerPage/util';
+import { Switche } from '../Switche/Switche';
+import { HandleEditPlayer} from '@/pages/PlayerPage/util';
+import { Sucess, Error } from '@/utils/utils';
 
 interface Props {
   edit?: boolean
@@ -20,7 +21,7 @@ interface Props {
 export function PlayerForm({ edit, close, updateTable, player }: Props) {
   const [visible, { toggle }] = useDisclosure(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState<boolean>();
 
   const form = useForm({
     initialValues: {
@@ -30,7 +31,7 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
       nickName: player ? player.apelido : '',
       pontos: player ? player.pontos : 0,
       flAtivo: player ? player.flAtivo : true,
-      urlImagem: player ? player.urlImagem : selectedImage,
+      urlImagem: selectedImage || '',
       titulos: player ? player.titulos : 0
     },
 
@@ -49,7 +50,7 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
       formData.append('email', form.values.email);
       formData.append('apelido', form.values.nickName);
       formData.append('pontos', (edit ? form.values.pontos : 0).toString());
-      formData.append('flAtivo', (edit? form.values.flAtivo : true).toString());
+      formData.append('flAtivo', (edit ? form.values.flAtivo : true).toString());
       if (selectedImage) {
         formData.append('imagem', selectedImage);
       }
@@ -96,32 +97,35 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
   const editPlayer = async () => {
     toggle()
 
-    console.log(form.values.flAtivo)
-
     const formData = new FormData();
     formData.append('id', (edit ? form.values.id : 0).toString());
     formData.append('nome', form.values.name);
     formData.append('email', form.values.email);
     formData.append('apelido', form.values.nickName);
     formData.append('pontos', (edit ? form.values.pontos : 0).toString());
-    formData.append('flAtivo', (edit ? active : form.values.flAtivo).toString());
-    selectedImage ? formData.append('imagem', selectedImage) :
-                    formData.append('imagem', form.values.urlImagem || '');
+    const flAtivoValue = edit ? (active !== undefined ? active : form.values.flAtivo) : form.values.flAtivo;
+    formData.append('flAtivo', flAtivoValue.toString());
+    if (selectedImage) {
+      formData.append('imagem', selectedImage);
+    }
+    if (!selectedImage && player) {
+      formData.append('urlImagem', player.urlImagem || '');
+    }
     formData.append('titulos', form.values.titulos.toString());
 
     HandleEditPlayer(player?.id || null, formData)
-    .then((data) => {
-      updateTable();
-      toggle();
-      close();
-      Sucess('Jogador atualizado com sucesso!')
-    })
-    .catch((error) => {
-      console.error(error)
-      Error(`Erro ao editar jogador: ${error}`)
-      toggle();
-      close();
-    })
+      .then((data) => {
+        updateTable();
+        toggle();
+        close();
+        Sucess('Jogador atualizado com sucesso!')
+      })
+      .catch((error) => {
+        console.error(error)
+        Error(`Erro ao editar jogador: ${error}`)
+        toggle();
+        close();
+      })
   }
 
   const handleSubmit = () => {
@@ -160,9 +164,11 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
             mt="sm"
             {...form.getInputProps('titulos')}
           />
-          <SwitchePlayer
+          <Switche
             InitialChecked={player?.flAtivo || false}
-            setActive={setActive} 
+            setActive={setActive}
+            titleDisabled='Habilitar jogador'
+            titleEnabled='Desabilitar jogador'
             {...form.getInputProps('flAtivo')}
           />
         </>

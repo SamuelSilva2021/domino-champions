@@ -1,4 +1,4 @@
-import { HandleDelete, Sucess, Error, GetPlayers } from '@/pages/PlayerPage/util';
+import { HandleDelete, GetPlayers } from '@/pages/PlayerPage/util';
 import { Rotas } from '@/utils/constants/rotas';
 import { Avatar, Badge, Table, Group, Text, Select, Button, Checkbox, rem, Modal } from '@mantine/core';
 import { IconTextColor, IconTrash, IconUserEdit } from '@tabler/icons-react';
@@ -8,6 +8,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { PlayerForm } from '../PlayerForm/PlayerForm';
 import { Player } from '@/utils/models/player';
 import ModalFormPlayer from '../ModalFormPlayer/ModalFormPlayer';
+import { Sucess, Error } from '@/utils/utils';
 
 interface Props {
   players: Player[]
@@ -68,17 +69,17 @@ export function PlayerTable({ players, updateTable }: Props) {
         </Group>
       </Table.Td>
       <Table.Td>
-        <Text fz="xs" c="dimmed">
+        <Text fz="sm">
           {player.apelido}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz="xs" c="dimmed">
+        <Text fz="xs" >
           {player.pontos}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz="xs" c="dimmed">
+        <Text fz="xs">
           {player.titulos}
         </Text>
       </Table.Td>

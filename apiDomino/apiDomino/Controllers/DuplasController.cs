@@ -20,7 +20,6 @@ namespace apiDomino.Controllers
             var duplas = await _dbContext.Duplas
                     .Include(d => d.Jogador1)
                     .Include(d => d.Jogador2)
-                    .Where(d => d.FlAtivo == 1)
                     .ToListAsync();
 
             return Ok(duplas);
@@ -50,7 +49,7 @@ namespace apiDomino.Controllers
                         .OrderByDescending(d => d.Pontos)
                         .ThenByDescending(d => d.PontosBatida)
                         .ThenBy(d => d.PontosSofridos)
-                        .Where(d => d.FlAtivo == 1)
+                        .Where(d => d.FlAtivo)
                         .ToListAsync();
 
             return Ok(duplas);
@@ -59,7 +58,7 @@ namespace apiDomino.Controllers
         [HttpPost]
         public async Task<ActionResult<Dupla>> AddDupla(Dupla dupla)
         {
-            if (string.IsNullOrEmpty(dupla.Name))
+            if (string.IsNullOrEmpty(dupla.Nome))
             {
                 return BadRequest(new { errors = new[] { new { field = "Name", message = "Nome da dupla obrigatório" } } });
             }
@@ -68,7 +67,7 @@ namespace apiDomino.Controllers
 
 
             var jogadorIds = await _dbContext.Duplas
-                            .Where(d => d.FlAtivo == 1 &&
+                            .Where(d => d.FlAtivo &&
                                    ((d.Jogador1.Id == dupla.Jogador1.Id || d.Jogador1.Id == dupla.Jogador2.Id) ||
                                     (d.Jogador2.Id == dupla.Jogador1.Id || d.Jogador2.Id == dupla.Jogador2.Id)))
                             .Select(d => new {
@@ -121,13 +120,13 @@ namespace apiDomino.Controllers
             {
                 return NotFound();
             }
-            if (string.IsNullOrEmpty(dupla.Name))
+            if (string.IsNullOrEmpty(dupla.Nome))
             {
                 return BadRequest(new { errors = new[] { new { field = "Name", message = "Nome da dupla obrigatório" } } });
             }
 
             var jogadorIds = await _dbContext.Duplas
-                            .Where(d => d.Id != dupla.Id && d.FlAtivo != 0)
+                            .Where(d => d.Id != dupla.Id && d.FlAtivo)
                             .Select(d => new { Jogador1Id = d.Jogador1.Id, Jogador2Id = d.Jogador2.Id })
                             .ToListAsync();
 
@@ -146,9 +145,13 @@ namespace apiDomino.Controllers
             }
 
             // Atualiza manualmente os campos desejados
-            existingDupla.Name = dupla.Name;
+            existingDupla.Nome = dupla.Nome;
             existingDupla.Jogador1 = dupla.Jogador1;
             existingDupla.Jogador2 = dupla.Jogador2;
+            existingDupla.Pontos = dupla.Pontos;
+            existingDupla.PontosBatida = dupla.PontosBatida;
+            existingDupla.PontosSofridos = dupla.PontosSofridos;
+            existingDupla.FlAtivo = dupla.FlAtivo;
 
             try
             {
@@ -182,18 +185,10 @@ namespace apiDomino.Controllers
             {
                 return NotFound();
             }
-            dupla.FlAtivo = 0;
-
+            _dbContext.Duplas.Remove(dupla);
             await _dbContext.SaveChangesAsync();
 
             return Ok(new { message = "Dupla deletada com sucesso!" });
         }
-
-
-
-
-
-
-
     }
 }

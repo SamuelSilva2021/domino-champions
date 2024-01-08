@@ -7,35 +7,45 @@ import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast, } from 'react-toastify';
-import { GetPlayers, Sucess, Error } from "./util";
+import { GetPlayers } from "./util";
 import ModalFormPlayer from "@/components/ModalFormPlayer/ModalFormPlayer";
 import { Player } from "@/utils/models/player";
+import { Sucess, Error } from "@/utils/utils";
 
 export function PlayerPage() {
-    const [opened, {open, close}] = useDisclosure(false);
+    const [opened, { open, close }] = useDisclosure(false);
     const [titleModal, setTitleModal] = useState('');
     const [edit, setEdit] = useState(false);
     const [players, setPlayers] = useState<Player[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredPlayers, setFilteredPlayers] = useState<Player[]>([]);
 
     const fetchPlayers = async () => {
         try {
-          const response = await GetPlayers();
-          setPlayers(response);
+            const response = await GetPlayers();
+            setPlayers(response);
         } catch (error) {
-          Error(`Erro ao buscar jogadores: ${error}`);
-          console.error(error);
+            Error(`Erro ao buscar jogadores: ${error}`);
+            console.error(error);
         }
-      };
+    };
 
-    useEffect(() => {       
-        fetchPlayers();   
-      }, [GetPlayers]); 
+    useEffect(() => {
+        fetchPlayers();
+    }, []);
 
-    const openModal = (title:string, edit: boolean) => {
+    const openModal = (title: string, edit: boolean) => {
         open();
         setTitleModal(title)
-        setEdit(edit) 
+        setEdit(edit)
     }
+
+    const filterPlayers = (term: string) => {
+        const filtered = players.filter((player) =>
+            player.nome.toLowerCase().includes(term.toLowerCase())
+        );
+        setFilteredPlayers(filtered);
+    };
 
     return (
         <Container my="md">
@@ -44,17 +54,20 @@ export function PlayerPage() {
                     <Grid.Col >
                         <Grid gutter='sm'>
                             <Grid.Col span={8}>
-                                <InputWithButton />
+                                <InputWithButton
+                                    onSearchChange={filterPlayers}
+                                    placeholder="Pesquisar jogador"
+                                />
                             </Grid.Col>
                             <Grid.Col span={2} offset={2} >
                                 <Button color="lime.7" size="sm" onClick={() => openModal('Cadastrar', false)}>
                                     Novo Jogador
-                                </Button>         
+                                </Button>
                             </Grid.Col>
                         </Grid>
                     </Grid.Col>
                     <Grid.Col>
-                        <PlayerTable players={players} updateTable={fetchPlayers} />
+                        <PlayerTable players={filteredPlayers.length > 0 ? filteredPlayers : players} updateTable={fetchPlayers} />
                     </Grid.Col>
                 </Grid>
             </SimpleGrid>
@@ -62,7 +75,7 @@ export function PlayerPage() {
                 opened={opened}
                 onClose={close}
                 title={titleModal}
-                fetchPlayers={fetchPlayers}                
+                fetchPlayers={fetchPlayers}
             />
         </Container>
     )
