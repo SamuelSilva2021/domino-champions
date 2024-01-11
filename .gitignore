@@ -21,3 +21,14 @@
 *.editorconfig
 *.props
 *.targets
+*.so
+*.a
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.BuildWithSkipAnalyzers
+*.CopyComplete
+*.txt
+*.db-shm
+*.db-wal
