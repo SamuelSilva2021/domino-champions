@@ -27,6 +27,19 @@ namespace apiDomino.Controllers
             }
             return Ok(jogadores);
         }
+        [HttpGet("disponivel")]
+        public async Task<ActionResult<List<Jogador>>> GetDisponiveis()
+        {
+            var jogadores = await _dbContext.Jogadores
+                .Where(j => j.FlAtivo && !_dbContext.Duplas.Any(d => d.Jogador1 == j || d.Jogador2 == j))
+                .ToListAsync();
+
+            if(jogadores == null) 
+            {
+                return NotFound();
+            }
+            return Ok(jogadores);
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<Jogador>> GetJogador(int id)
         {
@@ -85,6 +98,15 @@ namespace apiDomino.Controllers
             if (jogador == null)
             {
                 return NotFound();
+            }
+
+            var dupla = await _dbContext.Duplas
+                .Where(d => d.Jogador1.Id == jogador.Id || d.Jogador2.Id == jogador.Id)
+                .FirstOrDefaultAsync();
+
+            if (dupla != null)
+            {
+                return BadRequest($"Não é possível remover o jogador: {jogador.Nome}, o mesmo está vinculado a dupla: {dupla.Nome}");
             }
 
             _dbContext.Jogadores.Remove(jogador);

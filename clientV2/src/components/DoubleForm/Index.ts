@@ -32,6 +32,8 @@ export const DoubleFormInputs = (
     },
     validate: {
         nome: hasLength({ min: 2, max: 50 }, 'Nome precisa ter de 2-10 caracteres'),
+        jogador1: hasLength({min:1}, 'Selecione um jogador'),
+        jogador2: hasLength({min:1}, 'Selecione um jogador'),
     }
 })
 
@@ -67,13 +69,14 @@ export const Put = async (double: Pair, onClose: () => void | undefined, updateT
         }
         )
         .catch((error) => {
-            Error(`Erro: ${error.response.data.errors[0].message}`)
+            Error(`${error.response.data.errors[0].message}`)
+            console.error(`${error.response.data.errors[0].message}`)
         })
 }
 
 export const HandleSubmit = ({ double, players, edit, onClose, updateTable }: Props, {active}:{active: boolean}) => {
-    const jogador1 = players?.find(j => j.id === Number(double?.jogador1.id))
-    const jogador2 = players?.find(j => j.id === Number(double?.jogador2.id))
+    const jogador1 = players?.find(j => j.id === Number(double?.jogador1))
+    const jogador2 = players?.find(j => j.id === Number(double?.jogador2))
 
     const newDouble: Pair = {
         id: double?.id || 0,
@@ -86,7 +89,6 @@ export const HandleSubmit = ({ double, players, edit, onClose, updateTable }: Pr
         flAtivo: edit ? active : true,
         pontosSofridos: double?.pontosSofridos || 0
     };
-    console.log(active)
 
     edit ? Put(newDouble, onClose, updateTable) : Post(newDouble, onClose, updateTable);
 }

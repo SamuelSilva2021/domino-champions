@@ -109,6 +109,7 @@ namespace apiDomino.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDupla(int id, Dupla dupla)
         {
+            string message = string.Empty;
             if (id != dupla.Id)
             {
                 return BadRequest();
@@ -125,24 +126,29 @@ namespace apiDomino.Controllers
                 return BadRequest(new { errors = new[] { new { field = "Name", message = "Nome da dupla obrigatório" } } });
             }
 
-            var jogadorIds = await _dbContext.Duplas
-                            .Where(d => d.Id != dupla.Id && d.FlAtivo)
-                            .Select(d => new { Jogador1Id = d.Jogador1.Id, Jogador2Id = d.Jogador2.Id })
+            var result = await _dbContext.Duplas
+                            .Where(d => d.Id != dupla.Id && d.FlAtivo && (d.Jogador1.Id == dupla.Jogador1.Id || d.Jogador1.Id == dupla.Jogador2.Id))
+                            .Include(j => j.Jogador2)
                             .ToListAsync();
 
-            // Verificar se os jogadores já estão em duplas
-            bool jogador1HasDupla =  jogadorIds.Any(d => d.Jogador1Id == dupla.Jogador1.Id ||  d.Jogador2Id == dupla.Jogador1.Id);
-            bool jogador2HasDupla = jogadorIds.Any(d => d.Jogador1Id == dupla.Jogador2.Id || d.Jogador2Id == dupla.Jogador2.Id);
-
-            if (jogador1HasDupla || jogador2HasDupla)
+            if (result.Count > 0)
             {
-                return BadRequest(new { errors = new[] { new { field = "Pertence", message = "Um ou ambos os jogadores já pertencem a outra dupla." } } });
+                if (result.Count == 1)
+                {
+                    var d = result.First();
+                    message = $"O jogador {dupla.Jogador1.Nome} pertence à dupla {d.Nome}";
+                    if (d.Jogador2 != null)
+                    {
+                        message += $" e o jogador {dupla.Jogador2.Nome} pertence à mesma dupla.";
+                    }
+                }
+                else if (result.Count == 2)
+                {
+                    message = $"O jogador {dupla.Jogador1.Nome} pertencem à dupla {result[0].Nome} e o jogador {dupla.Jogador2.Nome} pertence à dupla {result[1].Nome}.";
+                }
+                return BadRequest(new { errors = new[] { new { field = "Pertence", message} } });
             }
 
-            if (dupla.Jogador1.Id == dupla.Jogador2.Id)
-            {
-                return BadRequest(new { errors = new[] { new { field = "Iguais", message = "Os jogadores na mesma dupla devem ser diferentes." } } });
-            }
 
             // Atualiza manualmente os campos desejados
             existingDupla.Nome = dupla.Nome;
@@ -181,6 +187,7 @@ namespace apiDomino.Controllers
         public async Task<IActionResult> DeleteDupla(int id)
         {
             var dupla = await _dbContext.Duplas.FindAsync(id);
+
             if (dupla == null)
             {
                 return NotFound();

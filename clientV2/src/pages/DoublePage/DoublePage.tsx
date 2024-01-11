@@ -34,14 +34,26 @@ export default function DoublePage() {
                                     placeholder="Pesquisar dupla"
                                 />
                             </Grid.Col>
-                            <Grid.Col span={2} offset={2} >
-                                <Button color="lime.7" size="sm" onClick={() => {
+                            <Grid.Col span={2} >
+                                <Button color="lime.7" size="md" onClick={() => {
                                     open()
                                     setTitle('Cria dupla')
                                     setEdit(false)
                                 }}>
                                     Criar dupla
                                 </Button>
+                            </Grid.Col>
+                            <Grid.Col span={2} >
+                                {
+                                    doubles.length > 3 && (
+                                        <Button size="md" onClick={() => {
+                                            console.log('Iniciar torneiro')
+                                        }}>
+                                            Gerar torneio
+                                        </Button>
+                                    )
+                                }
+
                             </Grid.Col>
                         </Grid>
                     </Grid.Col>
@@ -54,7 +66,7 @@ export default function DoublePage() {
                 </Grid>
             </SimpleGrid>
             <Modal opened={opened} onClose={close} title={title} centered>
-                <DoubleForm edit={edit} onClose={close} updateTable={fetchDouble}/>
+                <DoubleForm edit={edit} onClose={close} updateTable={fetchDouble} />
             </Modal>
         </Container>
     )

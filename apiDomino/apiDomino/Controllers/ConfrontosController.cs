@@ -138,75 +138,75 @@ namespace apiDomino.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateConfronto(int id, Confronto confronto)
-        {
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateConfronto(int id, Confronto confronto)
+        //{
 
-            var existingConfroto = await _dbContext.Confrontos.FindAsync(id);
+        //    var existingConfroto = await _dbContext.Confrontos.FindAsync(id);
 
-            if (existingConfroto == null)
-            {
-                return NotFound();
-            }
+        //    if (existingConfroto == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            // Atualiza manualmente os campos desejados
-            existingConfroto.PontosDupla1 = confronto.PontosDupla1;
-            existingConfroto.Dupla1Jogador1Pontos = confronto.Dupla1Jogador1Pontos;
-            existingConfroto.Dupla1Jogador2Pontos = confronto.Dupla1Jogador2Pontos;
-            existingConfroto.PontosDupla2 = confronto.PontosDupla2;
-            existingConfroto.Dupla2Jogador1Pontos = confronto.Dupla2Jogador1Pontos;
-            existingConfroto.Dupla2Jogador2Pontos = confronto.Dupla2Jogador2Pontos;
-            existingConfroto.VencedorId = confronto.VencedorId;
-            existingConfroto.FlConcluido = confronto.FlConcluido;
+        //    // Atualiza manualmente os campos desejados
+        //    existingConfroto.PontosDupla1 = confronto.PontosDupla1;
+        //    existingConfroto.Dupla1Jogador1Pontos = confronto.Dupla1Jogador1Pontos;
+        //    existingConfroto.Dupla1Jogador2Pontos = confronto.Dupla1Jogador2Pontos;
+        //    existingConfroto.PontosDupla2 = confronto.PontosDupla2;
+        //    existingConfroto.Dupla2Jogador1Pontos = confronto.Dupla2Jogador1Pontos;
+        //    existingConfroto.Dupla2Jogador2Pontos = confronto.Dupla2Jogador2Pontos;
+        //    existingConfroto.VencedorId = confronto.VencedorId;
+        //    existingConfroto.FlConcluido = confronto.FlConcluido;
 
-            int[] jogadorIds = { confronto.Dupla1Jogador1Id, confronto.Dupla1Jogador2Id, confronto.Dupla2Jogador1Id, confronto.Dupla2Jogador2Id };
-            int[] jogadorPontos = { confronto.Dupla1Jogador1Pontos, confronto.Dupla1Jogador2Pontos, confronto.Dupla2Jogador1Pontos, confronto.Dupla2Jogador2Pontos };
+        //    int[] jogadorIds = { confronto.Dupla1Jogador1Id, confronto.Dupla1Jogador2Id, confronto.Dupla2Jogador1Id, confronto.Dupla2Jogador2Id };
+        //    int[] jogadorPontos = { confronto.Dupla1Jogador1Pontos, confronto.Dupla1Jogador2Pontos, confronto.Dupla2Jogador1Pontos, confronto.Dupla2Jogador2Pontos };
 
-            int[] duplaIds = { confronto.Dupla1Id, confronto.Dupla2Id};
-            int[] duplaPontos = { confronto.PontosDupla1, confronto.PontosDupla2};
+        //    int[] duplaIds = { confronto.Dupla1Id, confronto.Dupla2Id};
+        //    int[] duplaPontos = { confronto.PontosDupla1, confronto.PontosDupla2};
 
-            //Lógica para adicionar pontos aos jogadores
-            var jogadores = await _dbContext.Jogadores
-                            .Where(j => jogadorIds.Contains(j.Id))
-                            .ToListAsync();
+        //    //Lógica para adicionar pontos aos jogadores
+        //    var jogadores = await _dbContext.Jogadores
+        //                    .Where(j => jogadorIds.Contains(j.Id))
+        //                    .ToListAsync();
 
-            for (int i = 0; i < jogadores.Count; i++)
-            {
-                var jogador = jogadores.Where(j => j.Id == jogadorIds[i]).FirstOrDefault();
-                jogador.Pontos += jogadorPontos[i];
-            }
+        //    for (int i = 0; i < jogadores.Count; i++)
+        //    {
+        //        var jogador = jogadores.Where(j => j.Id == jogadorIds[i]).FirstOrDefault();
+        //        jogador.Pontos += jogadorPontos[i];
+        //    }
 
-            //Lógica para adicionar pontos as duplas
-            var duplas = await _dbContext.Duplas
-                         .Where(d=> duplaIds.Contains(d.Id))
-                         .ToListAsync();
+        //    //Lógica para adicionar pontos as duplas
+        //    var duplas = await _dbContext.Duplas
+        //                 .Where(d=> duplaIds.Contains(d.Id))
+        //                 .ToListAsync();
 
-            for (int i = 0; i < duplas.Count; i++)
-            {
-                var dupla = duplas.Where(d => d.Id == duplaIds[i]).FirstOrDefault();
-                dupla.PontosBatida += duplaPontos[i];
-                dupla.PartidasConcluidas += 1;
-            }
-            //Lógica para adicionar pontos sofridos as duplas
-            var dupla1 = duplas.Where(d => d.Id == confronto.Dupla1Id).FirstOrDefault();
-            dupla1.PontosSofridos += duplaPontos[1];
-            var dupla2 = duplas.Where(d => d.Id == confronto.Dupla2Id).FirstOrDefault();
-            dupla2.PontosSofridos += duplaPontos[0];
+        //    for (int i = 0; i < duplas.Count; i++)
+        //    {
+        //        var dupla = duplas.Where(d => d.Id == duplaIds[i]).FirstOrDefault();
+        //        dupla.PontosBatida += duplaPontos[i];
+        //        dupla.PartidasConcluidas += 1;
+        //    }
+        //    //Lógica para adicionar pontos sofridos as duplas
+        //    var dupla1 = duplas.Where(d => d.Id == confronto.Dupla1Id).FirstOrDefault();
+        //    dupla1.PontosSofridos += duplaPontos[1];
+        //    var dupla2 = duplas.Where(d => d.Id == confronto.Dupla2Id).FirstOrDefault();
+        //    dupla2.PontosSofridos += duplaPontos[0];
            
-            var vencedor = duplas.Where(d => d.Id == confronto.VencedorId).FirstOrDefault();
-            vencedor.Pontos += 3;
+        //    var vencedor = duplas.Where(d => d.Id == confronto.VencedorId).FirstOrDefault();
+        //    vencedor.Pontos += 3;
             
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return NotFound();
-            }
+        //    try
+        //    {
+        //        await _dbContext.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(new { message = "Confronto finalizado com sucesso!" });
-        }
+        //    return Ok(new { message = "Confronto finalizado com sucesso!" });
+        //}
     }
 }
 

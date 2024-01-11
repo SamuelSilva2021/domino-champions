@@ -1,11 +1,9 @@
 import { HandleDelete, GetPlayers } from '@/pages/PlayerPage/util';
-import { Rotas } from '@/utils/constants/rotas';
 import { Avatar, Badge, Table, Group, Text, Select, Button, Checkbox, rem, Modal } from '@mantine/core';
-import { IconTextColor, IconTrash, IconUserEdit } from '@tabler/icons-react';
+import { IconTrash, IconUserEdit } from '@tabler/icons-react';
 import { ModalConfirm } from '../ModalConfirm/ModalConfirm';
 import { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { PlayerForm } from '../PlayerForm/PlayerForm';
 import { Player } from '@/utils/models/player';
 import ModalFormPlayer from '../ModalFormPlayer/ModalFormPlayer';
 import { Sucess, Error } from '@/utils/utils';
@@ -30,13 +28,13 @@ export function PlayerTable({ players, updateTable }: Props) {
   };
 
   const handleConfirmDelete = async () => {
-    HandleDelete(playerIdToDelete).then(() => {
+    HandleDelete(playerIdToDelete).then((resp) => {
       updateTable();
-      Sucess('Jogador excluído com sucesso!')
+      Sucess(`${resp.data.message}`)
     })
       .catch((error) => {
-        Error(error)
-        console.error(error)
+        Error(error.response.data)
+        console.error(error.response.data)
       })
     setIsOpen(false);
     setPlayerIdToDelete(null);

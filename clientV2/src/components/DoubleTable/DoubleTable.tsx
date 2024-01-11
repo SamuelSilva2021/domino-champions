@@ -1,10 +1,11 @@
 import { Pair } from "@/utils/models/pair";
-import { Badge, Button, Group, Modal, Table, Text, rem } from "@mantine/core";
+import { Badge, Button, Modal, Table, Text, rem } from "@mantine/core";
 import { IconTrash, IconUserEdit } from "@tabler/icons-react";
-import { handleDelete, handleEdit } from "./Index";
+import { openModal, handleEdit, handleConfirmDelete, handleCancelDelete } from "./Index";
 import { useState } from "react";
 import DoubleForm from "../DoubleForm/DoubleForm";
 import { useDisclosure } from "@mantine/hooks";
+import { ModalConfirm } from "../ModalConfirm/ModalConfirm";
 
 interface Props {
     doubles: Pair[],
@@ -15,7 +16,17 @@ export default function DoubleTable({ doubles, updateTable }: Props) {
     const [selectedDouble, setSelectedDouble] = useState<Pair>()
     const [opened, { open, close }] = useDisclosure(false);
     const [edit, setEdit] = useState(false);
-    
+    const [isOpen, setIsOpen] = useState(false);
+    const [textModal, setTextModal] = useState('');
+
+    const handleCancelDelete = () => {
+        setIsOpen(false);
+    };
+
+    const confirmDelete = async () => {
+        await handleConfirmDelete(selectedDouble?.id, setIsOpen, updateTable)
+    }
+
     const rows = doubles ? doubles.map(double => (
         <Table.Tr key={double.id}>
             <Table.Td>
@@ -65,7 +76,7 @@ export default function DoubleTable({ doubles, updateTable }: Props) {
                     style={{ marginRight: rem(16) }}
                     color='red'
                     variant='outline'
-                    onClick={() => handleDelete(double)}
+                    onClick={() => openModal(double, setSelectedDouble, setIsOpen, setTextModal)}
                 >
                     <IconTrash stroke={1.5} />
                 </Button>
@@ -74,7 +85,7 @@ export default function DoubleTable({ doubles, updateTable }: Props) {
                     variant='outline'
                     onClick={() => {
                         open()
-                        handleEdit({setSelectedDouble, double, setEdit})
+                        handleEdit({ setSelectedDouble, double, setEdit })
                     }}
                 >
                     <IconUserEdit stroke={1.5} />
@@ -105,6 +116,12 @@ export default function DoubleTable({ doubles, updateTable }: Props) {
             <Modal opened={opened} onClose={close} title={'Editar'} centered>
                 <DoubleForm edit={edit} onClose={close} updateTable={updateTable} double={selectedDouble} />
             </Modal>
+            <ModalConfirm
+                isOpen={isOpen}
+                onConfirm={confirmDelete}
+                onCancel={handleCancelDelete}
+                text={textModal}
+            />
         </>
     )
 }

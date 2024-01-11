@@ -1,6 +1,5 @@
 import { InputWithButton } from "@/components/InputWithButton/InputWithButton";
 import { PlayerForm } from "@/components/PlayerForm/PlayerForm";
-import { PlayerTable } from "@/components/UsersRolesTable/PlayerTable";
 import { Rotas } from "@/utils/constants/rotas";
 import { Button, Container, Grid, Modal, SimpleGrid, Skeleton, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -11,6 +10,7 @@ import { GetPlayers } from "./util";
 import ModalFormPlayer from "@/components/ModalFormPlayer/ModalFormPlayer";
 import { Player } from "@/utils/models/player";
 import { Sucess, Error } from "@/utils/utils";
+import { PlayerTable } from "@/components/PlayerTable/PlayerTable";
 
 export function PlayerPage() {
     const [opened, { open, close }] = useDisclosure(false);
@@ -60,7 +60,7 @@ export function PlayerPage() {
                                 />
                             </Grid.Col>
                             <Grid.Col span={2} offset={2} >
-                                <Button color="lime.7" size="sm" onClick={() => openModal('Cadastrar', false)}>
+                                <Button color="lime.7" size="md" onClick={() => openModal('Cadastrar', false)}>
                                     Novo Jogador
                                 </Button>
                             </Grid.Col>

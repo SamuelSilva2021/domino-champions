@@ -3717,11 +3717,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
+      "projectUniqueName": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
       "projectName": "apiDomino",
-      "projectPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
+      "projectPath": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\apiDomino.csproj",
       "packagesPath": "C:\\Users\\samue\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samue\\OneDrive\\Documentos\\Projetos\\domino-champions\\apiDomino\\apiDomino\\obj\\",
+      "outputPath": "D:\\Projetos\\domino-champions\\apiDomino\\apiDomino\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

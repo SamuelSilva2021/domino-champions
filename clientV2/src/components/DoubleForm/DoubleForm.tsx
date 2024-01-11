@@ -16,7 +16,6 @@ interface Props {
 export default function DoubleForm({ edit, onClose, updateTable, double }: Props) {
     const [players, setPlayers] = useState<Player[]>([]);
     const [active, setActive] = useState<boolean>(true);
-    const [activePlayers, setActivePlayers] = useState<Player[]>([]);
 
     const fetchPlayer = async () => {
         const res = await GetPlayers()
@@ -44,14 +43,14 @@ export default function DoubleForm({ edit, onClose, updateTable, double }: Props
                     label="Jogador1"
                     placeholder="Selecione um jogador"
                     data={players.map(j => ({ value: j.id.toString(), label: j.nome }))}
-                    {...form.getInputProps('jogador1Id')}
+                    {...form.getInputProps('jogador1')}
                 />
                 <Select
                     withAsterisk
                     label="Jogador2"
                     placeholder="Selecione um jogador"
                     data={players.map(j => ({ value: j.id.toString(), label: j.nome }))}
-                    {...form.getInputProps('jogador2Id')}
+                    {...form.getInputProps('jogador2')}
                 />
                 {edit &&
                     <>
