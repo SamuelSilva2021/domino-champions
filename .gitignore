@@ -11,3 +11,13 @@
 /apiDomino/.vs/apiDomino/v17/.suo
 /apiDomino/.vs/ProjectEvaluation/apidomino.metadata.v7.bin
 /apiDomino/.vs/ProjectEvaluation/apidomino.projects.v7.bin
+*.wsuo
+*.vsidx
+*.lock
+*.json
+*.sqlite
+*.cs
+*.cache
+*.editorconfig
+*.props
+*.targets
