@@ -61,10 +61,16 @@ namespace apiDomino.Migrations
                     b.Property<int>("FlConcluido")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FlFaseGrupos")
+                    b.Property<int>("PtsBtdDp1Jogador1")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FlFinal")
+                    b.Property<int>("PtsBtdDp1Jogador2")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PtsBtdDp2Jogador1")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PtsBtdDp2Jogador2")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("VencedorId")

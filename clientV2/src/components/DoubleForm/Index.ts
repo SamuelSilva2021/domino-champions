@@ -47,6 +47,16 @@ export const GetDouble = async () => {
     }
 }
 
+export const GetPlayers = async () => {
+    try {
+      const response = await axios.get(`${Rotas.PLAYERS}/disponivel`);
+      return response.data;
+    } catch (error) {
+      throw error.response.data.message
+    }
+  };
+  
+
 export const Post = async (double: Pair, onClose: () => void | undefined, updateTable: () => void) => {
     await axios.post(Rotas.DOUBLES, double)
         .then(() => {
@@ -56,7 +66,7 @@ export const Post = async (double: Pair, onClose: () => void | undefined, update
         }
         )
         .catch((error) => {
-            Error(`Erro: ${error.response.data.errors[0].message}`)
+            Error(`${error.response.data.errors[0].message}`)
         })
 }
 

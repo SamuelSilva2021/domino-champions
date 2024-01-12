@@ -1,9 +1,8 @@
 import { Pair } from "@/utils/models/pair"
 import { Box, Button, Grid, Group, Select, TextInput } from "@mantine/core";
-import { DoubleFormInputs, GetDouble, HandleSubmit } from "./Index";
+import { DoubleFormInputs, GetDouble, GetPlayers, HandleSubmit } from "./Index";
 import { useEffect, useState } from "react";
 import { Player } from "@/utils/models/player";
-import { GetPlayers } from "@/pages/PlayerPage/util";
 import { Switche } from "../Switche/Switche";
 
 interface Props {

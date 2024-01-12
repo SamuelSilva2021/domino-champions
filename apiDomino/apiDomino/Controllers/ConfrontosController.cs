@@ -14,6 +14,7 @@ namespace apiDomino.Controllers
     public class ConfrontosController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly Random _random = new Random();
 
         public ConfrontosController(ApplicationDbContext dbContext)
         {
@@ -28,10 +29,6 @@ namespace apiDomino.Controllers
 
             return confrontos;
         }
-
-        
-        
-
 
         [HttpGet("concluido/{concluido}")]
         public async Task<ActionResult<IEnumerable<Confronto>>> GetConfrontoConcluido(bool concluido)
@@ -66,23 +63,60 @@ namespace apiDomino.Controllers
             return Ok(confronto);
         }
         [HttpPost]
-        public async Task<IActionResult> PostConfronto(Confronto confronto)
+        public async Task<IActionResult> PostConfronto()
         {
             try
             {
-                // Adicione o confronto ao contexto do banco de dados
-                _dbContext.Confrontos.Add(confronto);
+                var duplas = await _dbContext.Duplas.ToListAsync();
 
-                // Salve as alterações no banco de dados
+                if (duplas.Count < 2)
+                {
+                    return BadRequest(new { error = "Número insuficiente de duplas para criar confrontos." });
+                }
+
+                var confrontos = new List<Confronto>();
+
+                for(int i = 0; i < duplas.Count -1; i++)
+                {
+                    for(int j = i + 1; j < duplas.Count; j++)
+                    {
+                        var confronto = new Confronto
+                        {
+                            Dupla1  = duplas[i],
+                            PtsBtdDp1Jogador1 = 0,
+                            PtsBtdDp1Jogador2 = 0,
+                            Dupla2 = duplas[j],
+                            PtsBtdDp2Jogador1 = 0,
+                            PtsBtdDp2Jogador2 = 0,
+                            VencedorId = 0,
+                            FlConcluido = 0,
+                        };
+                        confrontos.Add(confronto);
+                    }
+                }
+
+                ShuffleConfrontos(confrontos);
+
+                _dbContext.Confrontos.AddRange(confrontos);
                 await _dbContext.SaveChangesAsync();
 
-                // Retorne o confronto salvo com o status 201 (Created)
-                return CreatedAtAction(nameof(GetConfronto), new { id = confronto.Id }, confronto);
+                return CreatedAtAction(nameof(GetConfronto), confrontos);
             }
             catch (Exception ex)
             {
-                // Em caso de erro, retorne um erro de servidor com o status 500 (Internal Server Error)
-                return StatusCode(500, new { error = "Erro ao salvar o confronto" });
+                return StatusCode(500, new { message = "Erro ao criar confrontos" });
+            }
+        }
+        private void ShuffleConfrontos(List<Confronto> confrontos)
+        {
+            int n = confrontos.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _random.Next(n + 1);
+                Confronto value = confrontos[k];
+                confrontos[k] = confrontos[n];
+                confrontos[n] = value;
             }
         }
         public static T DeepClone<T>(T obj)
@@ -108,35 +142,35 @@ namespace apiDomino.Controllers
 
             return clone;
         }
-        [HttpPost("final")]
-        public async Task<IActionResult> PostConfrontoFinal(Confronto confronto)
-        {
-            try
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    // Crie uma nova instância do objeto Confronto usando a clonagem profunda
-                    Confronto novaPartida = DeepClone(confronto);
+        //[HttpPost("final")]
+        //public async Task<IActionResult> PostConfrontoFinal(Confronto confronto)
+        //{
+        //    try
+        //    {
+        //        for (int i = 0; i < 3; i++)
+        //        {
+        //            // Crie uma nova instância do objeto Confronto usando a clonagem profunda
+        //            Confronto novaPartida = DeepClone(confronto);
 
-                    // Adicione a nova partida ao contexto do banco de dados
-                    _dbContext.Confrontos.Add(novaPartida);
-                }
+        //            // Adicione a nova partida ao contexto do banco de dados
+        //            _dbContext.Confrontos.Add(novaPartida);
+        //        }
 
-                // Salve as alterações no banco de dados
-                await _dbContext.SaveChangesAsync();
+        //        // Salve as alterações no banco de dados
+        //        await _dbContext.SaveChangesAsync();
 
-                // Retorne a lista das três partidas salvas com o status 201 (Created)
-                List<Confronto> partidasSalvas = await _dbContext.Confrontos
-                                                .Where(c=> c.FlFinal==1)
-                                                .ToListAsync();
-                return CreatedAtAction(nameof(GetConfronto), partidasSalvas);
-            }
-            catch (Exception ex)
-            {
-                // Em caso de erro, retorne um erro de servidor com o status 500 (Internal Server Error)
-                return StatusCode(500, new { error = "Erro ao salvar as partidas" });
-            }
-        }
+        //        // Retorne a lista das três partidas salvas com o status 201 (Created)
+        //        List<Confronto> partidasSalvas = await _dbContext.Confrontos
+        //                                        .Where(c=> c.FlFinal==1)
+        //                                        .ToListAsync();
+        //        return CreatedAtAction(nameof(GetConfronto), partidasSalvas);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Em caso de erro, retorne um erro de servidor com o status 500 (Internal Server Error)
+        //        return StatusCode(500, new { error = "Erro ao salvar as partidas" });
+        //    }
+        //}
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdateConfronto(int id, Confronto confronto)

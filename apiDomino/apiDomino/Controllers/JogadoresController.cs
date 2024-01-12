@@ -23,7 +23,7 @@ namespace apiDomino.Controllers
             var jogadores = await _dbContext.Jogadores.ToListAsync();
             if (jogadores.Count == 0)
             {
-                return NotFound();
+                return StatusCode(400, new { message = "Nenhum jogador encontrado" });
             }
             return Ok(jogadores);
         }

@@ -5,11 +5,10 @@ import { Button, Container, Grid, Modal, SimpleGrid, Skeleton, rem } from "@mant
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast, } from 'react-toastify';
 import { GetPlayers } from "./util";
 import ModalFormPlayer from "@/components/ModalFormPlayer/ModalFormPlayer";
 import { Player } from "@/utils/models/player";
-import { Sucess, Error } from "@/utils/utils";
+import { Error } from "@/utils/utils";
 import { PlayerTable } from "@/components/PlayerTable/PlayerTable";
 
 export function PlayerPage() {
@@ -22,11 +21,10 @@ export function PlayerPage() {
 
     const fetchPlayers = async () => {
         try {
-            const response = await GetPlayers();
-            setPlayers(response);
+            const res = await GetPlayers();
+            setPlayers(res);
         } catch (error) {
-            Error(`Erro ao buscar jogadores: ${error}`);
-            console.error(error);
+            Error(`${error}`);
         }
     };
 

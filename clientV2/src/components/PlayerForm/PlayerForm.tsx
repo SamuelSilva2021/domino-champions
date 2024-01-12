@@ -38,7 +38,7 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
     validate: {
       name: hasLength({ min: 2, max: 50 }, 'Name must be 2-10 characters long'),
       // email: isEmail('Invalid email'),
-      nickName: hasLength({ min: 2, max: 50 }, 'Name must be 2-10 characters long'),
+      // nickName: hasLength({ min: 2, max: 50 }, 'Name must be 2-10 characters long'),
     },
   });
 
@@ -47,8 +47,8 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
     try {
       const formData = new FormData();
       formData.append('nome', form.values.name);
-      formData.append('email', form.values.email);
-      formData.append('apelido', form.values.nickName);
+      formData.append('email', form.values.email || '');
+      formData.append('apelido', form.values.nickName || '');
       formData.append('pontos', (edit ? form.values.pontos : 0).toString());
       formData.append('flAtivo', (edit ? form.values.flAtivo : true).toString());
       if (selectedImage) {
@@ -100,8 +100,8 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
     const formData = new FormData();
     formData.append('id', (edit ? form.values.id : 0).toString());
     formData.append('nome', form.values.name);
-    formData.append('email', form.values.email);
-    formData.append('apelido', form.values.nickName);
+    formData.append('email', form.values.email || '');
+    formData.append('apelido', form.values.nickName || '');
     formData.append('pontos', (edit ? form.values.pontos : 0).toString());
     const flAtivoValue = edit ? (active !== undefined ? active : form.values.flAtivo) : form.values.flAtivo;
     formData.append('flAtivo', flAtivoValue.toString());
@@ -138,15 +138,13 @@ export function PlayerForm({ edit, close, updateTable, player }: Props) {
       <TextInput label="Nome" placeholder="Nome" withAsterisk {...form.getInputProps('name')} />
       <TextInput
         label="Email"
-        placeholder="Seu email"
-        withAsterisk
+        placeholder="Seu email"        
         mt="md"
         {...form.getInputProps('email')}
       />
       <TextInput
         label="Apelido"
-        placeholder="Seu apelido"
-        withAsterisk
+        placeholder="Seu apelido"        
         mt="md"
         {...form.getInputProps('nickName')}
       />

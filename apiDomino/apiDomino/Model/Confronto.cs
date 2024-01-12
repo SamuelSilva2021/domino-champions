@@ -16,9 +16,5 @@ namespace apiDomino.Model
         public int PtsBtdDp2Jogador2 { get; set; }
         public int VencedorId { get; set; }
         public int FlConcluido { get; set; }
-        [DefaultValue(0)]
-        public int FlFaseGrupos { get; set; }
-        [DefaultValue(0)]
-        public int FlFinal { get; set; }
     }
 }
