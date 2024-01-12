@@ -52,14 +52,11 @@ namespace apiDomino.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConfronto(int id)
         {
-            // Busque o confronto pelo ID no banco de dados
             var confronto = await _dbContext.Confrontos.FindAsync(id);
 
-            // Verifique se o confronto foi encontrado
             if (confronto == null)
                 return NotFound();
 
-            // Retorne o confronto encontrado com o status 200 (OK)
             return Ok(confronto);
         }
         [HttpPost]
