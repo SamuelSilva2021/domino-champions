@@ -13,18 +13,15 @@ export default function App() {
   return (
     <Router>
       <MantineProvider theme={theme}>
-        <SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md">
-          <ToastContainer/>
-          <Grid gutter="md" columns={12}>
-            <Grid.Col span={1} >
-              <NavbarMinimal />              
-            </Grid.Col>
-            <Grid.Col span={11}>
-              <AppRouter />
-            </Grid.Col>
-          </Grid>
-          <FooterSocial/>
-        </SimpleGrid>
+        <ToastContainer />
+        <Grid columns={12}>
+          <Grid.Col span="content">
+            <NavbarMinimal />
+          </Grid.Col>
+          <Grid.Col span={{ base: 9, sm: 3, md: 6, lg: 11 }}>
+            <AppRouter />
+          </Grid.Col>
+        </Grid>
       </MantineProvider>
     </Router>
   );

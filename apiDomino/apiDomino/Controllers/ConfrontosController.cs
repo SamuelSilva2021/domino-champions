@@ -24,7 +24,15 @@ namespace apiDomino.Controllers
         public async Task<ActionResult<IEnumerable<Confronto>>> GetConfronto()
         {
             var confrontos = await _dbContext.Confrontos
-                .Where(c => c.FlConcluido == 0)
+                .Include(d => d.Dupla1)
+                .ThenInclude(j => j.Jogador1)
+                .Include(d => d.Dupla1)
+                .ThenInclude(j => j.Jogador2)
+                .Include(d => d.Dupla2)
+                .ThenInclude(j => j.Jogador1)
+                .Include(d => d.Dupla2)
+                .ThenInclude(j => j.Jogador2)
+                .Where(c => !c.FlConcluido)
                 .ToListAsync();
 
             return confrontos;
@@ -36,14 +44,14 @@ namespace apiDomino.Controllers
             if (concluido)
             {
                 var confrontos = await _dbContext.Confrontos
-                .Where(c => c.FlConcluido == 1)
+                .Where(c => c.FlConcluido)
                 .ToListAsync(); 
                 return confrontos;
             }
             else
             {
                 var confrontos = await _dbContext.Confrontos
-                .Where(c => c.FlConcluido == 0)
+                .Where(c => c.FlConcluido)
                 .ToListAsync();
                 return confrontos;
             }
@@ -86,7 +94,7 @@ namespace apiDomino.Controllers
                             PtsBtdDp2Jogador1 = 0,
                             PtsBtdDp2Jogador2 = 0,
                             VencedorId = 0,
-                            FlConcluido = 0,
+                            FlConcluido = false,
                         };
                         confrontos.Add(confronto);
                     }

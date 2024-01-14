@@ -9,10 +9,12 @@ import { ModalConfirm } from "../ModalConfirm/ModalConfirm";
 
 interface Props {
     doubles: Pair[],
-    updateTable: () => void
+    updateTable: () => void,
+    onSearchChange: (term: string) => void,
+    openModalNew: (title: string, edit: boolean) => void
 }
 
-export default function DoubleTable({ doubles, updateTable }: Props) {
+export default function DoubleTable({ doubles, updateTable, onSearchChange, openModalNew }: Props) {
     const [selectedDouble, setSelectedDouble] = useState<Pair>()
     const [opened, { open, close }] = useDisclosure(false);
     const [edit, setEdit] = useState(false);

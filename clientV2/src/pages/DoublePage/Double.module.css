@@ -1,0 +1,22 @@
+.responsiveContainer {
+    @media (min-width: em(370px)) {
+        max-width: rem(300px);
+      }
+  
+    @media (min-width: em(400px)) {
+      max-width: rem(350px);
+    }
+    
+    @media (min-width: em(500px)) {
+      max-width: rem(450px);
+    }
+  
+    @media (min-width: em(600px)) {
+      max-width: rem(550px);
+    }
+    
+      @media (min-width: em(880px)) {
+        max-width: 80%;
+      }
+    margin-top: 1%;
+  }

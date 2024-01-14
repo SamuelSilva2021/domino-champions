@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home.page';
-import { PlayerPage } from './pages/PlayerPage/Player.page';
+import { PlayerPage } from './pages/PlayerPage/PlayerPage';
 import PairPage from './pages/DoublePage/DoublePage';
 import GamesPage from './pages/GamesPage/GamesPage';
 import AnaliticsPage from './pages/AnaliticsPage/AnaliticsPage';

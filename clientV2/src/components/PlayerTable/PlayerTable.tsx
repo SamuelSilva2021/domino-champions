@@ -9,11 +9,13 @@ import ModalFormPlayer from '../ModalFormPlayer/ModalFormPlayer';
 import { Sucess, Error } from '@/utils/utils';
 
 interface Props {
-  players: Player[]
-  updateTable: () => void
+  players: Player[];
+  updateTable: () => void;
+  onSearchChange: (term: string) => void;
+  openModal: (title: string, edit: boolean) => void
 }
 
-export function PlayerTable({ players, updateTable }: Props) {
+export function PlayerTable({ players, updateTable, onSearchChange, openModal }: Props) {
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpen, setIsOpen] = useState(false);
   const [playerIdToDelete, setPlayerIdToDelete] = useState<number | null>(null);

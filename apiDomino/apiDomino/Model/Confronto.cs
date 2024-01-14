@@ -15,6 +15,6 @@ namespace apiDomino.Model
         public int PtsBtdDp2Jogador1 { get; set; }
         public int PtsBtdDp2Jogador2 { get; set; }
         public int VencedorId { get; set; }
-        public int FlConcluido { get; set; }
+        public bool FlConcluido { get; set; }
     }
 }

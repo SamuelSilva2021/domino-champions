@@ -7,8 +7,8 @@ export const GetPlayers = async () => {
   try {
     const response = await axios.get(`${Rotas.PLAYERS}`);
     return response.data;
-  } catch (error) {
-    throw error.response.data.message
+  } catch (error: any) {
+    throw (error.response.data.message) || 'Erro desconhecido';
   }
 };
 

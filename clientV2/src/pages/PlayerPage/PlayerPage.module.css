@@ -1,0 +1,28 @@
+.responsiveContainer {
+  margin-top: 1%;
+  width: 100%;
+}
+
+@media (min-width: 300px) {
+  .responsiveContainer {
+    max-width: 10%;
+  }
+}
+
+@media (min-width: 400px) {
+  .responsiveContainer {
+    max-width: 30%;
+  }
+}
+
+@media (min-width: 600px) {
+  .responsiveContainer {
+    max-width: 60%;
+  }
+}
+
+@media (min-width: 720px) {
+  .responsiveContainer {
+    max-width: 80%;
+  }
+}
